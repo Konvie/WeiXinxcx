@@ -1,0 +1,102 @@
+package com.konvi.entity;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.konvi.enums.OrderStatusEnum;
+import com.konvi.enums.PayStatusEnum;
+import com.konvi.utils.EnumUtil;
+import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * 订单主表
+ * @author konvi
+ * @version 1.0
+ * @date 2021/8/11
+ */
+@Entity
+@Data
+@DynamicUpdate
+// 当JSON返回数据中的属性名对应的属性值为Null 则最终返回的JSON数据中就不返回这条属性
+// @JsonInclude(JsonInclude.Include.NON_NULL)
+
+public class OrderMaster implements Serializable
+{
+    /**
+    * 序列化版本号
+    */
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * 订单ID
+     */
+    @Id
+    private String orderId;
+
+    /**
+     * 买家名称
+     */
+    private String buyerName;
+
+    /**
+     * 买家手机号
+     */
+    private String buyerPhone;
+
+    /**
+     * 买家地址
+     */
+    private String buyerAddress;
+
+    /**
+     * 买家微信Openid
+     */
+    private String buyerOpenid;
+
+    /**
+     * 订单总金额
+     */
+    private BigDecimal orderAmount;
+
+    /**
+     * 订单状态 ，默认为0新下单
+     */
+    private Integer orderStatus = OrderStatusEnum.NEW.getCode();
+
+    /**
+     * 支付状态，默认为0等待支付
+     */
+    private Integer payStatus = PayStatusEnum.WAIT.getCode();
+
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
+
+
+    /**
+     * 订单详情列表 实现方式1
+     * 字段在表中并不存在
+     * 一个 订单 下可能会有多个 订单详情
+     */
+    //@Transient
+    //private List<OrderDetail> orderDetails = new ArrayList<>();
+    //private List<OrderDetail> orderDetails;
+}
