@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.validation.constraints.NotEmpty;
 
 /**
+ * 创建订单 ResultVO<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult)方法所需要的第一个参数封装
  * @author konvi
  * @version 1.0
  * @date 2021/8/14

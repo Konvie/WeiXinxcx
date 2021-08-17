@@ -1,13 +1,17 @@
 package com.konvi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.konvi.enums.ProductStatusEnum;
+import com.konvi.utils.EnumUtil;
 import lombok.Data;
 import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 商品详情
@@ -69,5 +73,26 @@ public class ProductInfo implements Serializable
      */
     private Integer categoryType;
 
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
+    /**
+     * 更新时间
+     */
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
+
+    /**
+     * 获取产品枚举类: 商品的各个状态都在里面
+     * @return
+     */
+    @JsonIgnore
+    public ProductStatusEnum getProductStatusEnum()
+    {
+        return EnumUtil.getByCode(productStatus, ProductStatusEnum.class);
+    }
 
 }

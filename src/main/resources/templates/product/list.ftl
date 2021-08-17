@@ -1,0 +1,108 @@
+<html>
+    <#--引入头文件-->
+    <#include "../common/header.ftl">
+
+    <body>
+        <div id="wrapper" class="toggled">
+            <#--边栏sidebar-->
+            <#include "../common/nav.ftl">
+            <#--主要内容 content start-->
+            <div class="page-content-wrapper">
+                <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <#--主要内容 content start-->
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>商品ID</th>
+                                    <th>名称</th>
+                                    <th>图片</th>
+                                    <th>单价</th>
+                                    <th>库存</th>
+                                    <th>描述</th>
+                                    <th>类目</th>
+                                    <th>创建时间</th>
+                                    <th>更新时间</th>
+                                    <th colspan="2">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <#if productInfoPageList.content??>
+                                    <#list productInfoPageList.content as productInfo>
+                                        <tr>
+                                            <td>${productInfo_index+1}</td>
+                                            <td>${productInfo.productId}</td>
+                                            <td>${productInfo.productName}</td>
+                                            <td><img height="100" width="100" src="${productInfo.productIcon}" alt="该图片不存在!"></td>
+                                            <td>${productInfo.productPrice}</td>
+                                            <td>${productInfo.productStock}</td>
+                                            <td>${productInfo.productDescription}</td>
+                                            <td>${productInfo.categoryType}</td>
+                                            <td>${productInfo.createTime}</td>
+                                            <td>${productInfo.updateTime}</td>
+                                            <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
+                                            <td>
+                                                <#if productInfo.getProductStatusEnum().message == "上架">
+                                                    <a href="/sell/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
+                                                <#else>
+                                                    <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
+                                                </#if>
+                                            </td>
+                                        </tr>
+                                    </#list>
+                                </#if>
+                            </tbody>
+                        </table>
+                        <#--主要内容 content end-->
+                    </div>
+                    <#--分页 start-->
+                    <div class="col-md-12 column">
+                        <ul class="pagination pull-right">  <#--让分页居右-->
+                            <#--上一页处理 start-->
+                            <#if currentPage lte 1>
+                                <li>
+                                    <a href="#">上一页</a>
+                                </li>
+                            <#else>
+                                <li>
+                                    <a href="/sell/seller/product/list?page=${currentPage - 1}&size=${pageSize}">上一页</a>
+                                </li>
+                            </#if>
+                            <#--上一页处理 end-->
+                            <#--代循环遍历(根据DB中查询出来的带分页查询所有订单列表)-->
+                            <#list 1..productInfoPageList.getTotalPages() as index>
+                                <#--当前页面置灰-->
+                                <#if currentPage == index>
+                                    <li class="disabled">
+                                        <a href="/sell/seller/product/list?page=${index}&size=${pageSize}">${index}</a>
+                                    </li>
+                                <#else>
+                                    <li>
+                                        <a href="/sell/seller/product/list?page=${index}&size=${pageSize}">${index}</a>
+                                    </li>
+                                </#if>
+                            </#list>
+                            <#--代循环遍历(根据DB中查询出来的带分页查询所有订单列表)-->
+                            <#-- 下一页处理 start-->
+                            <#if currentPage gte productInfoPageList.getTotalPages()>
+                                <li>
+                                    <a href="#">下一页</a>
+                                </li>
+                            <#else>
+                                <li>
+                                    <a href="/sell/seller/product/list?page=${currentPage + 1}&size=${pageSize}">上一页</a>
+                                </li>
+                            </#if>
+                            <#-- 下一页处理 end-->
+                        </ul>
+                    </div>
+                    <#--分页 end-->
+                </div>
+            </div>
+            </div>
+            <#--主要内容 content start-->
+        </div>
+    </body>
+</html>

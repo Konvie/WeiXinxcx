@@ -131,4 +131,48 @@ public class ProductInfoServiceImpl implements IProductInfoService
             productInfoDAO.save(productInfo);
         }
     }
+
+    /**
+     * 商品上架
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo onSale(String productId)
+    {
+        // 根据商品ID查询 商品信息
+        ProductInfo productInfo = productInfoDAO.findById(productId).orElse(null);
+
+        // 如果商品不存在 则抛出"该商品不存在异常"
+        if (productInfo == null)
+        {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+
+        // 更新商品状态 下架(1) -> 上架(0)
+        productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
+        // 更新商品状态为 上架
+        return productInfoDAO.save(productInfo);
+    }
+
+    /**
+     * 商品下架
+     * @param productId
+     * @return
+     */
+    @Override
+    public ProductInfo offSale(String productId)
+    {
+        // 根据商品ID查询 商品信息
+        ProductInfo productInfo = productInfoDAO.findById(productId).orElse(null);
+        // 如果商品不存在 则抛出"该商品不存在异常"
+        if (productInfo == null)
+        {
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+        }
+        // 更新商品状态 上架(0) -> 下架(1)
+        productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());
+        // 更新商品状态为 下架
+        return productInfoDAO.save(productInfo);
+    }
 }

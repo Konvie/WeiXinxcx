@@ -14,7 +14,7 @@
                     <div class="alert alert-dismissable alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                         <h4>
-                            取消订单错误!
+                            操作失败!${msg}
                         </h4>
                         <a href="${url}" class="alert-link" style="text-decoration:none">3<strong>s后自动跳转</strong></a>
                         <input type="hidden" value="${url}" id="hiddenUrl">

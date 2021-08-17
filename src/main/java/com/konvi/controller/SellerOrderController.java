@@ -3,6 +3,7 @@ package com.konvi.controller;
 import com.konvi.dto.OrderDTO;
 import com.konvi.entity.OrderMaster;
 import com.konvi.enums.ResultEnum;
+import com.konvi.exception.SellException;
 import com.konvi.service.IOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +50,11 @@ public class SellerOrderController
         Page<OrderDTO> orderDTOPageList = orderService.findList(pageRequest);
 
         // 带分页查询到的订单列表
-        map.put("orderDTOPageList",orderDTOPageList);     //带分页查询到的订单列表
-        map.put("currentPage",page);       //设置当前页
-        map.put("size",size);              //设置每页显示多少条数据
+        map.put("orderDTOPageList",orderDTOPageList);
+        //设置当前页
+        map.put("currentPage",page);
+        //设置每页显示多少条数据
+        map.put("size",size);
 
         return new ModelAndView("order/list",map);
     }
@@ -73,7 +76,7 @@ public class SellerOrderController
             OrderDTO orderDTO = orderService.findById(orderId);
             // 取消订单操作
             OrderDTO cancelOrderDTO = orderService.cancel(orderDTO);
-        } catch (Exception e)
+        } catch (SellException e)
         {
             log.error("[卖家端取消订单]发生异常{}",e);
             contextPath = request.getContextPath();     //灵活获取应用名 如/sell
@@ -127,7 +130,7 @@ public class SellerOrderController
         {
             OrderDTO orderDTO = orderService.findById(orderId);
             orderService.finish(orderDTO);
-        } catch (Exception e)
+        } catch (SellException e)
         {
             log.error("[卖家端完成订单]发生异常{}",e);
             session.setAttribute("msg",e.getMessage());
@@ -137,6 +140,6 @@ public class SellerOrderController
 
         session.setAttribute("msg",ResultEnum.ORDER_FINISH_SUCCESS.getMessage());
         session.setAttribute("url","/sell/seller/order/list");
-        return new ModelAndView("common/order_finish_success");
+        return new ModelAndView("common/success");
     }
 }
