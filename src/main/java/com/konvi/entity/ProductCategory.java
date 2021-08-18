@@ -47,11 +47,11 @@ public class ProductCategory implements Serializable
     /**
      * 创建时间
      */
-    // private Date createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    // private Date updateTime;
+    private Date updateTime;
 
 }

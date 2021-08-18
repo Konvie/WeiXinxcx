@@ -126,18 +126,15 @@ public class SellerProductInfoController
      * @return
      */
     @GetMapping("/index")
-    public ModelAndView index(@RequestParam(value = "productId",required = false)String productId,Map map)
+    public ModelAndView index(@RequestParam(value = "productId",required = false)String productId,Map<String,Object> map)
     {
-        // 若商品ID为空则结束整个方法
-        if (!StringUtils.hasText(productId))
+        if (StringUtils.hasText(productId))
         {
-            return null;
+            // 根据商品ID 查询某个商品的信息
+            ProductInfo productInfo = productInfoService.findById(productId);
+            // 设置产品信息
+            map.put("product",productInfo);
         }
-        // 根据商品ID 查询某个商品的信息
-        ProductInfo productInfo = productInfoService.findById(productId);
-        // 设置产品信息
-        map.put("product",productInfo);
-
         // 查询所有的商品类目
         List<ProductCategory> productCategoryList = productCategoryService.findAll();
         map.put("categoryList",productCategoryList);
@@ -156,6 +153,7 @@ public class SellerProductInfoController
     public ModelAndView save(@Valid ProductForm form, BindingResult bindingResult, HttpServletRequest request)
     {
         HttpSession session = request.getSession();
+        // 如果校验信息出错,则返回错误
         if (bindingResult.hasErrors())
         {
             session.setAttribute("msg",bindingResult.getFieldError().getDefaultMessage());
