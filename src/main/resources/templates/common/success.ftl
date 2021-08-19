@@ -4,8 +4,8 @@
     <title>成功提示</title>
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.0.1/css/bootstrap.css" rel="stylesheet">
 
-    <script src="../../static/js/jquery-3.2.1.js" type="text/javascript" ></script>
-    <script src="../../static/js/time.js" type="text/javascript" ></script>
+    <script src="../../js/jquery-3.2.1.js" type="text/javascript" ></script>
+    <script src="../../js/time.js" type="text/javascript" ></script>
 </head>
 
 <body>

@@ -56,9 +56,8 @@ public class IProductInfoDAOTest
     @Test
     public void queryByProductStatus()
     {
-        PageRequest request = PageRequest.of(0, 2);
 
-        Page<ProductInfo> productInfoPage = productInfoDAO.queryByProductStatus(0,request);
-        Assert.assertNotEquals(0,productInfoPage.getContent().size());
+        List<ProductInfo> productInfoList = productInfoDAO.queryByProductStatus(0);
+        Assert.assertNotEquals(0,productInfoList.size());
     }
 }

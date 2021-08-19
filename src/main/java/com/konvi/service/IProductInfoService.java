@@ -22,10 +22,10 @@ public interface IProductInfoService
     ProductInfo findById(String productId);
 
     /**
-     * 分页查询所有上架商品信息
+     * 查询所有上架商品信息
      * @return
      */
-    Page<ProductInfo> findUpAll();
+    List<ProductInfo> findUpAll();
 
     /**
      * 分页查询所有商品信息

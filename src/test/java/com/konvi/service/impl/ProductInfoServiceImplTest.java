@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -44,8 +45,8 @@ public class ProductInfoServiceImplTest
     @Test
     public void findUpAll()
     {
-        Page<ProductInfo> productInfoPage = productInfoService.findUpAll();
-        Assert.assertNotEquals(0,productInfoPage.getContent().size());
+        List<ProductInfo> productInfoList = productInfoService.findUpAll();
+        Assert.assertNotEquals(0,productInfoList.size());
     }
 
     /**

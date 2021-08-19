@@ -42,15 +42,13 @@ public class ProductInfoServiceImpl implements IProductInfoService
 
 
     /**
-     * 分页查询所有上架商品信息
-     * request为PageRequest类型参数，表示分页的限制，从0开始，共有2页
+     * 查询所有上架商品信息
      * @return
      */
     @Override
-    public Page<ProductInfo> findUpAll()
+    public List<ProductInfo> findUpAll()
     {
-        PageRequest request = PageRequest.of(0,2);
-        return productInfoDAO.queryByProductStatus(ProductStatusEnum.UP.getCode(),request);
+        return productInfoDAO.queryByProductStatus(ProductStatusEnum.UP.getCode());
     }
 
     /**

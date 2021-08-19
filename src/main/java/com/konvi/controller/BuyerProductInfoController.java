@@ -48,7 +48,7 @@ public class BuyerProductInfoController
     public ResultVO List()
     {
         // (1)查询所有上架商品
-        Page<ProductInfo> productInfoPage = productInfoService.findUpAll();
+        List<ProductInfo> productInfoPage = productInfoService.findUpAll();
 
         // (2)查询商品类
         List<Integer> categoryTypeList = new ArrayList<Integer>();

@@ -20,5 +20,5 @@ public interface IProductInfoDAO extends JpaRepository<ProductInfo, String>
      * @param productStatus
      * @return
      */
-    Page<ProductInfo> queryByProductStatus(Integer productStatus, Pageable pageable);
+    List<ProductInfo> queryByProductStatus(Integer productStatus);
 }

@@ -47,7 +47,7 @@ public class BuyerOrderController
     {
         if (bindingResult.hasErrors())
         {
-            log.error("[创建订单] 参数不正确, orderFor={}",orderForm);
+            log.error("[创建订单] 参数不正确, orderForm={}",orderForm);
             // 抛出自定义异常 "参数不正确"
             throw new SellException(ResultEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
